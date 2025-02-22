@@ -34,10 +34,8 @@ command to run if program contains helper info
 ```
 
 ## Authors
-
-Contributors names and contact info
  
-- [@Peter Yuk](https://github.com/dyuk01)
+- [Peter Yuk](https://github.com/dyuk01)
 
 ## Version History
 
