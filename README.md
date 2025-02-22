@@ -36,6 +36,9 @@ command to run if program contains helper info
 ## Authors
  
 - [Peter Yuk](https://github.com/dyuk01)
+- [Sehyung Oh]()
+- [Steve Choi] (https://github.com/smchoi24)
+- [SeungJe Park] ()
 
 ## Version History
 
