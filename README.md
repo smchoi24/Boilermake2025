@@ -37,7 +37,7 @@ command to run if program contains helper info
 
 Contributors names and contact info
  
-- [@Peter Yuk](https://twitter.com/dompizzie)
+- [@Peter Yuk](https://github.com/dyuk01)
 
 ## Version History
 
