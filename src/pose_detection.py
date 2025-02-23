@@ -1,13 +1,24 @@
 import cv2
 import mediapipe as mp
 import numpy as np
+import boto3
+import datetime
+import time
+from config import AWS_ACCESS_KEY, AWS_SECRET_KEY, S3_BUCKET_NAME, VIOLATION_COOLD  # Import config values
 
 # Initialize MediaPipe Pose
 mp_pose = mp.solutions.pose
 pose = mp_pose.Pose()
 
+# Initialize S3 Client
+s3_client = boto3.client(
+    's3',
+    region_name='us-east-2',
+    aws_access_key_id=AWS_ACCESS_KEY,
+    aws_secret_access_key=AWS_SECRET_KEY
+)
 
-# Function to calculate the angle between three points
+# Define function to calculate spine angle
 def calculate_spine_angle(shoulder, hip):
     # Convert to NumPy arrays
     shoulder = np.array(shoulder)  # Upper point
@@ -26,10 +37,7 @@ def calculate_spine_angle(shoulder, hip):
     elif spine_angle < 180:
         spine_angle -= 90
 
-    # print(spine_angle)
-
     return spine_angle
-
 
 # Function to detect unsafe poses
 def detect_unsafe_pose(landmarks):
@@ -46,9 +54,32 @@ def detect_unsafe_pose(landmarks):
         return True  # Unsafe pose
     return False  # Safe pose
 
+# Function to upload frame to S3
+def upload_to_s3(frame):
+    timestamp = datetime.datetime.now().strftime("%Y%m%d%H%M%S")
+    s3_key = f"screenshots/frame{timestamp}.jpg"
+
+    success, buffer = cv2.imencode('.jpg', frame)
+    if success:
+        try:
+            s3_client.put_object(
+                Bucket=S3_BUCKET_NAME,  # Replace with your bucket name
+                Key=s3_key,
+                Body=buffer.tobytes(),
+                ContentType='image/jpeg'
+            )
+            print(f"Upload Successful: safetyviolations/{s3_key}")
+        except Exception as e:
+            print("Upload Failed:", e)
+    else:
+        print("Failed to encode frame to jpeg.")
 
 # Initialize OpenCV video capture
 cap = cv2.VideoCapture(0)  # Use 0 for the default camera
+
+# Initialize variables for tracking violation time
+last_violation_time = None
+violation_cooldown = VIOLATION_COOLD
 
 while cap.isOpened():
     ret, frame = cap.read()
@@ -75,8 +106,15 @@ while cap.isOpened():
 
         # Detect unsafe poses
         if detect_unsafe_pose(results.pose_landmarks.landmark):
-            cv2.putText(frame, "Unsafe Pose Detected!", (50, 50), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 0, 255), 2,
-                        cv2.LINE_AA)
+            # Check if enough time has passed  since the last violation
+            current_time = time.time()
+            if last_violation_time is None or current_time - last_violation_time >= violation_cooldown:
+                print("Unsafe pose detected, uploading frame to S3.")
+                # Upload frame to S3 if unsafe pose detected
+                upload_to_s3(frame)
+                last_violation_time = current_time  # Update the last violation time
+        else:
+            last_violation_time = None  # Reset the timer if no violation is detected
 
     # Display the frame
     cv2.imshow('Real-Time Pose Detection', frame)
