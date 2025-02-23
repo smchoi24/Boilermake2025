@@ -3,12 +3,13 @@ import cv2
 import mediapipe as mp
 from keras.src.backend import switch
 from roboflow import Roboflow
+from config import API_KEY
 import threading
 import concurrent.futures
 
 
 # Roboflow Model (for vest, hard hat, and person)
-rf = Roboflow(api_key="88iBd1SmUZCSTcdn6y2l")
+rf = Roboflow(api_key=API_KEY)
 project = rf.workspace().project("construction-safety-gsnvb")
 rf_model = project.version(1).model
 
