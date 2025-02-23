@@ -51,10 +51,6 @@ Site Sentinel is a computer vision-based safety monitoring system designed speci
   * roboflow
   * Other dependencies as required
 
-### Installing
-
-* 
-
 ### Configuration
 
 * Roboflow API Key:
@@ -85,6 +81,17 @@ Upon execution, Site Sentinel will:
 * Detect hard hats, safety vests, and goggles using the Roboflow API and custom object detection model.
 * Evaluate worker posture via Mediapipe’s pose detection.
 * Display annotated video feeds and issue warnings when safety violations are detected.
+
+## Project structure
+
+* **src/:** contains all source code
+  * **ppe_detection.py:** source code for PPE detection program.
+  * **pose_detection.py:** source code for pose detection program.
+  * **exported_model/:** contains custom trained model from mediapipe.
+* **docs/:** contains all frontend related assets and code
+  * **assets/:** contains css, js, and needed assets.
+  * **images/:** contains essential images for website frontend.
+  * **templates:** contains HTML files of web pages.
 
 ## Authors
  
