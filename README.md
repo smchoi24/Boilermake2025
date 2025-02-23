@@ -11,7 +11,6 @@ Site Sentinel is a computer vision-based safety monitoring system designed speci
 * Technologies Used
 * Getting Started
   * Prerequisites
-  * Installation
   * Configuration
 * Usage
 * Project Structure
