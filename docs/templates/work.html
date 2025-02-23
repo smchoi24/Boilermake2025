@@ -1,8 +1,8 @@
 <!DOCTYPE HTML>
 <!--
-	Solid State by HTML5 UP
-	html5up.net | @ajlkn
-	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+    Solid State by HTML5 UP
+    html5up.net | @ajlkn
+    Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
 -->
 <html>
 	<head>
@@ -15,74 +15,85 @@
 	<body class="is-preload">
 
 		<!-- Page Wrapper -->
-			<div id="page-wrapper">
+		<div id="page-wrapper">
 
-				<!-- Header -->
-					<header id="header">
-						<h1><a href="index.html">Site Sentinel</a></h1>
-						<nav>
-							<a href="#menu">Menu</a>
-						</nav>
-					</header>
+			<!-- Header -->
+			<header id="header">
+				<h1><a href="index.html">Site Sentinel</a></h1>
+				<nav>
+					<a href="#menu">Menu</a>
+				</nav>
+			</header>
 
-				<!-- Menu -->
-					<nav id="menu">
-						<div class="inner">
-							<h2>Menu</h2>
-							<ul class="links">
-								<li><a href="index.html">Home</a></li>
-								<li><a href="team.html">Team</a></li>
-								<li><a href="vision.html">Vision</a></li>
-							</ul>
-							<a href="#" class="close">Close</a>
-						</div>
-					</nav>
+			<!-- Menu -->
+			<nav id="menu">
+				<div class="inner">
+					<h2>Menu</h2>
+					<ul class="links">
+						<li><a href="index.html">Home</a></li>
+						<li><a href="team.html">Team</a></li>
+						<li><a href="vision.html">Vision</a></li>
+					</ul>
+					<a href="#" class="close">Close</a>
+				</div>
+			</nav>
 
-				<!-- Wrapper -->
-					<section id="wrapper">
-						<header>
-							<div class="inner">
-								<h2>What is Site Sentinel</h2>
-								<p><i>"Revolutionizing workplace safety with real-time AI monitoring."</i></p>
-							</div>
-						</header>
-
-						<!-- Content -->
-							<div class="wrapper">
-								<div class="inner">
-
-									<section>
-										<h3 class="major">About our Mission</h3>
-										<p>Our mission is to harness AI technology to enhance workplace safety by addressing critical challenges such as PPE compliance and unsafe posture. We aim to proactively detect hazards in real time, empower industries to stay compliant, and create safer, more efficient work environments through innovation and AI-powered solutions.</p>
-									
-										<h3 class="major">What it does</h3>
-										<p>Site Sentinel uses Roboflow to detect missing <a target="_blank" rel="noopener noreferrer" href="https://www.osha.gov/personal-protective-equipment">PPE</a> (helmets, vests, etc.) and MediaPipe for real-time pose estimation to monitor unsafe lifting techniques. Leveraging edge AI for low-latency processing, the system provides real-time alerts on-site. It also utilizes a cloud-based analytics dashboard to analyze historical safety data, track compliance, and generate detailed reports for both workers and managers.</p>
-										
-
-										<h3 class="major">How Site Sentinel Can Impact Society</h3>
-										<p>By preventing workplace accidents and ensuring <a target="_blank" rel="noopener noreferrer" href="https://www.osha.gov/"> OSHA compliance</a>, Site Sentinel contributes to safer work environments, reducing injuries, downtime, and costs. It empowers industries to proactively address safety concerns, improving overall productivity and worker well-being.</p>
-											
-									</section>
-
-								</div>
-							</div> 
-
-					</section>
-
-
-				<!-- Footer -->
-				<section id="footer">
+			<!-- Wrapper -->
+			<section id="wrapper">
+				<header>
 					<div class="inner">
-						<h2 class="major">Get in touch</h2>
-						<ul class="contact">
-							<li class="icon solid fa-envelope"><a href="mailto::peteryuk91@gmail.com">Peter Yuk</a></li>
-							<li class="icon solid fa-envelope"><a href="mailto::seh.onp05@gmail.com">Sehyeong Oh</a></li>
-							<li class="icon solid fa-envelope"><a href="mailto::nemga786@gmail.com">Seongje Park</a></li>
-							<li class="icon solid fa-envelope"><a href="mailto::stevemin0528@gmail.com">Steve Choi</a></li>
-
-						</ul>
+						<h2>What is Site Sentinel</h2>
+						<p><i>"Revolutionizing workplace safety with real-time AI monitoring."</i></p>
 					</div>
-				</section>
+				</header>
+
+				<!-- Content -->
+				<div class="wrapper">
+					<div class="inner">
+
+						<section>
+							<h3 class="major">About our Mission</h3>
+							<p>Our mission is to harness AI technology to enhance workplace safety by addressing critical challenges such as PPE compliance and unsafe posture. We aim to proactively detect hazards in real time, empower industries to stay compliant, and create safer, more efficient work environments through innovation and AI-powered solutions.</p>
+						
+							<h3 class="major">What it does</h3>
+							<p>Site Sentinel uses Roboflow to detect missing <a target="_blank" rel="noopener noreferrer" href="https://www.osha.gov/personal-protective-equipment">PPE</a> (helmets, vests, etc.) and MediaPipe for real-time pose estimation to monitor unsafe lifting techniques. Leveraging edge AI for low-latency processing, the system provides real-time alerts on-site. It also utilizes a cloud-based analytics dashboard to analyze historical safety data, track compliance, and generate detailed reports for both workers and managers.</p>
+							
+							<h3 class="major">How It Works</h3>
+							<p>
+								Our system runs on a local camera that continuously captures video. It leverages various APIs and models for detection:
+							</p>
+							<ul>
+								<li><strong>YOLOv8 (with Roboflow):</strong> Detects missing PPE such as helmets, gloves, and vests.</li>
+								<li><strong>MediaPipe:</strong> Implements real-time pose estimation to identify unsafe lifting techniques.</li>
+								<li><strong>Edge AI Processing:</strong> Uses YOLOv8 on-site for low-latency detection, reducing reliance on cloud processing.</li>
+								<li><strong>AWS Services:</strong> Manages cloud storage, data analysis, and compliance tracking. When an unsafe posture or missing safety gear is detected, the system automatically captures the current video frame and uploads it to an S3 bucket in JPEG format (with the image data stored as a NumPy array).</li>
+								<li><strong>Analytics Dashboard:</strong> Provides insights into safety trends and violations by aggregating data from AWS.</li>
+							</ul>
+							<p>
+								After inference, the trained models return the coordinates for the detected objects and annotate the live video stream to highlight which parts are missing or unsafe. This real-time feedback ensures that potential safety issues are flagged immediately.
+							</p>
+							
+							<h3 class="major">How Site Sentinel Can Impact Society</h3>
+							<p>By preventing workplace accidents and ensuring <a target="_blank" rel="noopener noreferrer" href="https://www.osha.gov/">OSHA compliance</a>, Site Sentinel contributes to safer work environments, reducing injuries, downtime, and costs. It empowers industries to proactively address safety concerns, improving overall productivity and worker well-being.</p>
+						</section>
+
+					</div>
+				</div> 
+
+			</section>
+
+			<!-- Footer -->
+			<section id="footer">
+				<div class="inner">
+					<h2 class="major">Get in touch</h2>
+					<ul class="contact">
+						<li class="icon solid fa-envelope"><a href="mailto:peteryuk91@gmail.com">Peter Yuk</a></li>
+						<li class="icon solid fa-envelope"><a href="mailto:seh.onp05@gmail.com">Sehyeong Oh</a></li>
+						<li class="icon solid fa-envelope"><a href="mailto:nemga786@gmail.com">Seongje Park</a></li>
+						<li class="icon solid fa-envelope"><a href="mailto:stevemin0528@gmail.com">Steve Choi</a></li>
+					</ul>
+				</div>
+			</section>
 
 		</div>
 
