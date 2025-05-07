@@ -1,3 +1,6 @@
+from dotenv import load_dotenv
+import os
+
 import cv2
 import mediapipe as mp
 import numpy as np
@@ -5,6 +8,9 @@ import boto3
 import datetime
 import time
 from config import AWS_ACCESS_KEY, AWS_SECRET_KEY, S3_BUCKET_NAME, VIOLATION_COOLD  # Import config values
+
+
+load_dotenv('key.env')
 
 # Initialize MediaPipe Pose
 mp_pose = mp.solutions.pose
